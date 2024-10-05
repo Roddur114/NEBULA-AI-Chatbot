@@ -1,0 +1,136 @@
+body {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    font-family: "Arial", sans-serif;
+    overflow: hidden;
+    /* Prevents overflow due to sidebar */
+}
+
+/* Chat messages take the full width of the screen */
+.chat-container {
+    width: 100%;
+    height: calc(100vh - 120px);
+    /* Full height minus header and input field */
+    overflow-y: auto;
+    padding: 10px;
+    transition: margin-left 0.3s ease;
+    /* Smooth transition for shifting */
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    /* Limits the message width */
+}
+
+.user-message {
+    background-color: rgba(135, 206, 250, 0.5);
+    /* Light blue background for user */
+    text-align: right;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: rgba(255, 192, 203, 0.5);
+    /* Light pink background for responses */
+    text-align: left;
+    align-self: flex-start;
+}
+
+.input-group {
+    margin-bottom: 50px;
+    /* Added bottom margin */
+    transition: margin-left 0.3s, width 0.3s;
+    /* Smooth transition */
+    display: flex;
+    justify-content: flex-start;
+    /* Align the input and button to the left */
+}
+
+.input-group input {
+    width: auto;
+    /* Input will dynamically resize */
+    min-width: 150px;
+    /* Minimum width of input box */
+    max-width: 50%;
+    /* Max width to avoid being too long */
+    padding-right: 5px;
+    margin-left: 330px;
+    flex-grow: 1;
+    transition: width 0.3s ease-in-out;
+}
+
+.input-group-append button {
+    margin-left: 0px;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    /* Hide off-screen */
+    width: 300px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    transition: left 0.3s ease;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#sidebar h3 {
+    color: #fff;
+}
+
+#sidebar .close-btn {
+    cursor: pointer;
+    color: #fff;
+    float: right;
+    font-size: 1.5em;
+}
+
+.hamburger {
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;
+    top: 80px;
+    left: 20px;
+}
+
+.btn-custom {
+    background: linear-gradient(135deg, #f3a683, #f7d794);
+    border: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #f7d794, #f3a683);
+    transform: scale(1.05);
+}
+
+/* Logo and Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+}
+
+.header img {
+    max-height: 50px;
+}
+
+.header h1 {
+    color: #fff;
+    font-size: 1.5em;
+}
+
+/* Ensures the hamburger icon remains visible and chatbox doesn't overlap */
+.chat-container {
+    margin-left: 250px;
+    /* Add margin to ensure the hamburger icon is visible */
+    margin-right: 20px;
+}

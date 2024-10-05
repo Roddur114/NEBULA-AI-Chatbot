@@ -1,0 +1,187 @@
+/* General Styles */
+body {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.header img {
+    max-height: 50px;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    color: #fff;
+}
+
+/* Hero Section */
+#hero {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+}
+
+#hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#hero .btn-custom {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #f3a683, #f7d794);
+    border: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#hero .btn-custom:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #f7d794, #f3a683);
+}
+
+/* Features Section */
+#features {
+    padding: 50px 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#features h3 {
+    font-size: 2em;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+#features .row {
+    display: flex;
+    justify-content: space-around;
+}
+
+#features .col-md-4 h4 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #f3a683;
+}
+
+#features .col-md-4 p {
+    font-size: 1.1em;
+    color: #fff;
+}
+
+/* Footer Section */
+footer {
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #features .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    #hero h2 {
+        font-size: 2em;
+    }
+
+    #hero p {
+        font-size: 1em;
+    }
+}

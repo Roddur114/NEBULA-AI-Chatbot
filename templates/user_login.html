@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Futuristic Login</title>
+
+    <!-- Link to Google Fonts for futuristic look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Link to your existing CSS file -->
+    <link rel="stylesheet" href="static/css/login.css" />
+
+    <!-- FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="login-container">
+      <!-- Animated Box for Login/Sign-up -->
+      <div class="login-box">
+        <h2>Welcome Back</h2>
+        <p class="subtext">Login or Sign up with your account</p>
+
+        <!-- Google Auth Button -->
+        <button class="btn-google" onclick="googleLogin()">
+          <i class="fab fa-google"></i> Continue with Google
+        </button>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form">
+          <div class="form-group">
+            <input type="email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" required />
+          </div>
+          <button class="btn-login">Login</button>
+        </form>
+
+        <!-- Switch to Sign Up Link -->
+        <div class="switch">
+          <p>Don't have an account? <a href="#" id="signupLink">Sign Up</a></p>
+        </div>
+      </div>
+
+      <!-- Sign-up Form (Initially Hidden) -->
+      <div class="signup-box" style="display: none">
+        <h2>Create Account</h2>
+        <p class="subtext">Sign up to start using our Chatbot</p>
+
+        <!-- Google Auth Button -->
+        <button class="btn-google" onclick="googleSignup()">
+          <i class="fab fa-google"></i> Sign Up with Google
+        </button>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <!-- Sign-up Form -->
+        <form id="signup-form">
+          <div class="form-group">
+            <input type="text" placeholder="Full Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" required />
+          </div>
+          <button class="btn-signup">Sign Up</button>
+        </form>
+
+        <!-- Switch to Login Link -->
+        <div class="switch">
+          <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle between Login and Sign-up form
+      document
+        .getElementById("signupLink")
+        .addEventListener("click", function () {
+          document.querySelector(".login-box").style.display = "none";
+          document.querySelector(".signup-box").style.display = "block";
+        });
+
+      document
+        .getElementById("loginLink")
+        .addEventListener("click", function () {
+          document.querySelector(".login-box").style.display = "block";
+          document.querySelector(".signup-box").style.display = "none";
+        });
+
+      // Mock function for Google Auth
+      function googleLogin() {
+        window.location.href = "/auth/google"; // This will handle Google login
+      }
+
+      function googleSignup() {
+        window.location.href = "/auth/google"; // Same link for sign-up via Google
+      }
+    </script>
+  </body>
+</html>

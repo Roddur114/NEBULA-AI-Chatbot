@@ -1,0 +1,7 @@
+flask
+Groq
+python-dotenv
+transformers
+Flask-Dance
+Flask-Login
+
