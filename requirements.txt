@@ -4,4 +4,6 @@ python-dotenv
 transformers
 Flask-Dance
 Flask-Login
+Flask-SQLAlchemy 
+Flask-Bcrypt
 

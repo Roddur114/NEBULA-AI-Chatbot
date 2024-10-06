@@ -1,12 +1,6 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from flask_dance.contrib.google import make_google_blueprint, google
-from flask_login import (
-    LoginManager,
-    login_user,
-    logout_user,
-    login_required,
-    current_user,
-)
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 import os
 from groq import Groq
@@ -14,99 +8,89 @@ from groq import Groq
 # Load environment variables
 load_dotenv()
 
-# Initialize the Flask app
-app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")  # Add a secret key for session management
 
-# Initialize the Groq client
 client = Groq()
 
-# Configure Google OAuth
-google_bp = make_google_blueprint(
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
-    redirect_to="google_login",
-)
-app.register_blueprint(google_bp, url_prefix="/auth")
+# Initialize the Flask app
+app = Flask(__name__)
 
-# Initialize Flask-Login
-login_manager = LoginManager()
-login_manager.login_view = "index"
-login_manager.init_app(app)
+# Set up the database
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "your_secret_key_here"  # Needed for session management
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
-# Mock User class (for demo purposes)
-class User:
-    def __init__(self, email):
-        self.email = email
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return self.email
+# User model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
 
-# In-memory storage for authenticated users
-users = {}
+# Initialize the database
+with app.app_context():
+    db.create_all()
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return users.get(user_id)
-
-
-# Index (Login) Route
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        # Check if user exists
+        user = User.query.filter_by(email=email).first()
+
+        if user and bcrypt.check_password_hash(user.password, password):
+            # Password matches, redirect to chatbot
+            return redirect(url_for("chatbot"))
+        else:
+            # Invalid login, reload the login page with an error
+            flash("Invalid credentials. Please try again or sign up.")
+            return redirect(url_for("login"))
+
     return render_template("user_login.html")
 
 
-# Google login route callback
-@app.route("/google_login")
-def google_login():
-    if not google.authorized:
-        return redirect(url_for("google.login"))
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
 
-    resp = google.get("/oauth2/v1/userinfo")
-    if resp.ok:
-        user_info = resp.json()
-        email = user_info["email"]
+        # Check if user already exists
+        existing_user = User.query.filter_by(email=email).first()
 
-        # Check if user exists, otherwise "sign them up"
-        user = users.get(email)
-        if user is None:
-            user = User(email)
-            users[email] = user
+        if existing_user:
+            flash("User already exists. Please log in.")
+            return redirect(url_for("login"))
 
-        login_user(user)
-        return redirect(url_for("chatbot"))
+        # Hash the password and store the user in the database
+        hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+        new_user = User(email=email, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
 
-    return redirect(url_for("index"))
+        flash("Sign up successful. Please log in.")
+        return redirect(url_for("login"))
 
-
-# Logout route
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
+    return render_template("signup.html")
 
 
-# Chatbot Route
+# Route for the chatbot interface
 @app.route("/chatbot")
-@login_required
 def chatbot():
     return render_template("chatbot.html")
 
 
-# Chatbot message route
+# Route to handle chatbot input and generate responses
 @app.route("/send_message", methods=["POST"])
 def send_message():
     data = request.get_json()
@@ -135,6 +119,7 @@ def send_message():
         for chunk in completion:
             bot_response += chunk.choices[0].delta.content or ""
             bot_response = bot_response.replace("\n", "<br>")
+            print(bot_response)
 
         return jsonify({"bot_response": bot_response})
 
