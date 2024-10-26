@@ -1,0 +1,155 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oxanium', sans-serif;
+    background-color: #000;
+    /* Futuristic dark background */
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 15px 0;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00ffc3;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: glowing 1.5s infinite;
+}
+
+@keyframes glowing {
+    0% {
+        text-shadow: 0 0 5px #00ffc3, 0 0 10px #00ffc3, 0 0 20px #00ffc3, 0 0 30px #00ffc3;
+    }
+
+    50% {
+        text-shadow: 0 0 20px #00ffc3, 0 0 40px #00ffc3, 0 0 60px #00ffc3;
+    }
+
+    100% {
+        text-shadow: 0 0 5px #00ffc3, 0 0 10px #00ffc3, 0 0 20px #00ffc3, 0 0 30px #00ffc3;
+    }
+}
+
+/* Navbar Menu */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+}
+
+.navbar-item {
+    margin-left: 30px;
+}
+
+.navbar-link {
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: #00ffc3;
+    text-shadow: 0 0 5px #00ffc3, 0 0 10px #00ffc3, 0 0 20px #00ffc3;
+}
+
+/* Special "Chat Now" Button */
+.special-link {
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: linear-gradient(90deg, #00ffc3, #0077ff);
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 255, 195, 0.5), 0 0 20px rgba(0, 119, 255, 0.5);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.special-link:hover {
+    background: linear-gradient(90deg, #00ffc3, #0077ff, #00ffc3);
+    box-shadow: 0 0 25px rgba(0, 255, 195, 1), 0 0 30px rgba(0, 119, 255, 1);
+}
+
+/* Toggle Button for Mobile View */
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    width: 25px;
+    background-color: #fff;
+    margin: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .navbar-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        display: none;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+    }
+
+    .navbar-item {
+        margin: 20px 0;
+    }
+
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-toggle.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .navbar-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .navbar-toggle.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+}

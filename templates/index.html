@@ -1,77 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Futuristic Chatbot - Welcome</title>
-    <link rel="icon" href="static/images/logo.png" type="image/png" />
+{% extends "navbar.html" %} {% block title %}Futuristic Chatbot - Welcome{%
+endblock %} {% block content %}
+<!-- Header Section -->
+<header class="header">
+  <!-- <h1>NEBULA</h1> -->
+</header>
 
-    <!-- Bootstrap CSS for layout support -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500&display=swap"
-      rel="stylesheet"
-    />
+<!-- Hero Section -->
+<section id="hero" class="text-center py-5">
+  <h2>Welcome to NEBULA</h2>
+  <p>
+    Your personal AI assistant, here to make conversations easy and effective.
+  </p>
+  <a href="/login" class="btn btn-custom">Try NEBULA</a>
+</section>
 
-    <!-- Link to your existing CSS file -->
-    <link rel="stylesheet" href="static/css/landing_page.css" />
-  </head>
+<!-- Floating Prompts Section -->
+<section id="floating-prompts" class="text-center py-5">
+  <h3>Quick Prompts</h3>
+  <div class="floating-container">
+    <button class="floating-prompt" onclick="redirectToChat('Tell me a joke')">
+      Tell me a joke
+    </button>
+    <button
+      class="floating-prompt"
+      onclick="redirectToChat('What is the weather today?')"
+    >
+      What's the weather today?
+    </button>
+    <button
+      class="floating-prompt"
+      onclick="redirectToChat('Give me a motivational quote')"
+    >
+      Give me a quote
+    </button>
+  </div>
+</section>
 
-  <body>
-    <!-- Header Section -->
-    <header class="header">
-      <!-- <img src="static/images/logo.png" alt="Company Logo" /> -->
-      <h1>NEBULA</h1>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero" class="text-center py-5">
-      <h2>Welcome to Futuristic Chatbot</h2>
-      <p>
-        Your personal AI assistant, here to make conversations easy and
-        effective.
-      </p>
-      <a href="/login" class="btn btn-custom" data-toggle="modal"
-        >Get Started</a
-      >
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="text-center py-5">
-      <div class="container">
-        <h3>Why Futuristic Chatbot?</h3>
-        <div class="row">
-          <div class="col-md-4">
-            <h4>Natural Conversations</h4>
-            <p>
-              Engage with our chatbot that understands your queries
-              effortlessly.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h4>Task Automation</h4>
-            <p>Let us handle your repetitive tasks, reminders, and more.</p>
-          </div>
-          <div class="col-md-4">
-            <h4>24/7 Availability</h4>
-            <p>
-              Chat with the bot anytime, anywhere, and get instant responses.
-            </p>
-          </div>
-        </div>
+<!-- Features Section -->
+<section id="features" class="text-center py-5">
+  <div class="container">
+    <h3>Why Futuristic Chatbot?</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Natural Conversations</h4>
+        <p>
+          Engage with our chatbot that understands your queries effortlessly.
+        </p>
       </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="text-center py-3">
-      <p>&copy; 2024 Futuristic Chatbot. All</p>
-    </footer>
-  </body>
-</html>
+      <div class="col-md-4">
+        <h4>Task Automation</h4>
+        <p>Let us handle your repetitive tasks, reminders, and more.</p>
+      </div>
+      <div class="col-md-4">
+        <h4>24/7 Availability</h4>
+        <p>Chat with the bot anytime, anywhere, and get instant responses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<!-- Script to Handle Prompt Redirection -->
+<script>
+  function redirectToChat(prompt) {
+    // Check if the user is logged in (we will handle this in the backend)
+    fetch("/check_login_status")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.logged_in) {
+          // Redirect to chatbot with the prompt
+          window.location.href = `/chatbot?prompt=${encodeURIComponent(
+            prompt
+          )}`;
+        } else {
+          // If not logged in, redirect to the login page
+          window.location.href = `/login?next=chatbot&prompt=${encodeURIComponent(
+            prompt
+          )}`;
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking login status:", error);
+      });
+  }
+</script>
+{% endblock %}

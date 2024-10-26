@@ -1,4 +1,13 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import (
+    Flask,
+    render_template,
+    request,
+    jsonify,
+    redirect,
+    url_for,
+    flash,
+    session,
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
@@ -7,7 +16,6 @@ from groq import Groq
 
 # Load environment variables
 load_dotenv()
-
 
 client = Groq()
 
@@ -34,6 +42,15 @@ with app.app_context():
     db.create_all()
 
 
+# Check if the user is logged in
+@app.route("/check_login_status")
+def check_login_status():
+    if "user_id" in session:
+        return jsonify({"logged_in": True})
+    else:
+        return jsonify({"logged_in": False})
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -49,7 +66,15 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and bcrypt.check_password_hash(user.password, password):
-            # Password matches, redirect to chatbot
+            # Password matches, store the user ID in the session
+            session["user_id"] = user.id
+
+            # Redirect after login, either to chatbot or next page (if redirected from prompt)
+            next_page = request.args.get("next")
+            prompt = request.args.get("prompt")
+
+            if next_page == "chatbot" and prompt:
+                return redirect(url_for("chatbot", prompt=prompt))
             return redirect(url_for("chatbot"))
         else:
             # Invalid login, reload the login page with an error
@@ -87,7 +112,10 @@ def signup():
 # Route for the chatbot interface
 @app.route("/chatbot")
 def chatbot():
-    return render_template("chatbot.html")
+    # Get the prompt if passed from the homepage
+    prompt = request.args.get("prompt", "")
+
+    return render_template("chatbot.html", prompt=prompt)
 
 
 # Route to handle chatbot input and generate responses
@@ -119,7 +147,7 @@ def send_message():
         for chunk in completion:
             bot_response += chunk.choices[0].delta.content or ""
             bot_response = bot_response.replace("\n", "<br>")
-            print(bot_response)
+            # print(bot_response)
 
         return jsonify({"bot_response": bot_response})
 

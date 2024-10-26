@@ -5,20 +5,21 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
     margin: 0;
     padding: 0;
+    color: #333;
 }
 
 /* Login Container */
 .login-container {
     width: 100%;
     max-width: 400px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: #333;
     text-align: center;
 }
 
@@ -31,11 +32,13 @@ body {
 h2 {
     margin-bottom: 20px;
     font-size: 2em;
+    color: #333;
 }
 
 .subtext {
     font-size: 1.1em;
     margin-bottom: 30px;
+    color: #555;
 }
 
 /* Google Button */
@@ -66,17 +69,18 @@ h2 {
 }
 
 .divider span {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: #fff;
     padding: 0 10px;
     position: relative;
     z-index: 2;
+    color: #666;
 }
 
 .divider::before {
     content: "";
     height: 1px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 50%;
     left: 0;
@@ -92,23 +96,23 @@ h2 {
 input {
     width: 100%;
     padding: 12px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    color: #fff;
+    color: #333;
     font-size: 1em;
     outline: none;
-    transition: background-color 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 input:focus {
-    background-color: rgba(255, 255, 255, 0.3);
+    border-color: #6a11cb;
 }
 
 /* Buttons for Login/Signup */
 .btn-login,
 .btn-signup {
-    background-color: #6a11cb;
+    background-color: #007bff;
     color: #fff;
     padding: 12px;
     border: none;
@@ -121,7 +125,7 @@ input:focus {
 
 .btn-login:hover,
 .btn-signup:hover {
-    background-color: #2575fc;
+    background-color: #0056b3;
 }
 
 /* Switch between Login and Signup */
@@ -130,7 +134,7 @@ input:focus {
 }
 
 .switch a {
-    color: #fff;
+    color: #007bff;
     font-weight: bold;
     text-decoration: none;
 }

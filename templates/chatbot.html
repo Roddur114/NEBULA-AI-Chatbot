@@ -7,9 +7,6 @@
     <!-- Title of the page with the logo as favicon -->
     <title>Futuristic Chatbot</title>
 
-    <!-- Link to the favicon (your logo) -->
-    <link rel="icon" href="static/images/logo.png" type="image/png" />
-
     <!-- Link to the external Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -21,14 +18,72 @@
   </head>
 
   <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <!-- <a class="navbar-brand" href="{{ url_for('index') }}">NEBULA</a> -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{{ url_for('index') }}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                More
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <!-- Header with Company Logo -->
     <div class="header">
-      <img src="static/images/logo.png" alt="Company Logo" />
-      <h1>Futuristic Chatbot</h1>
+      <!-- <img src="static/images/logo.png" alt="Company Logo" /> -->
+      <!-- <h1>NEBULA</h1> -->
     </div>
 
     <!-- Hamburger icon to open sidebar -->
-    <div class="hamburger" id="hamburger">&#9776;</div>
+    <!-- <div class="hamburger" id="hamburger">&#9776;</div> -->
 
     <!-- Full-screen chat container -->
     <div class="chat-container" id="chatbox"></div>
@@ -48,12 +103,10 @@
     </div>
 
     <!-- Sidebar -->
-    <div id="sidebar">
-      <h3>
-        Chat History <span class="close-btn" id="close_sidebar">&times;</span>
-      </h3>
-      <div id="history_content"></div>
-    </div>
+    <!-- <div id="sidebar"> -->
+    <!-- <h3>NEBULA <span class="close-btn" id="close_sidebar">&times;</span></h3> -->
+    <!-- <div id="history_content"></div>
+    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
